@@ -3,7 +3,7 @@ kind : Deployment
 
 metadata: 
   name: nginx
-  namespace : dev
+  namespace : default
 
 spec:
 
