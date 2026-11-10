@@ -1,0 +1,40 @@
+
+name: Validate Kubernetes Manifests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "kubernetes/**"
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "kubernetes/**"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Kubernetes YAML
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+
+      - name: Install Kubeconform
+        run: go install github.com/yannh/kubeconform/cmd/kubeconform@latest
+
+      - name: Validate Kubernetes manifests
+        run: kubeconform -strict -summary kubernetes/nginx
