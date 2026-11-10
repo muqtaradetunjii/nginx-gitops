@@ -37,4 +37,4 @@ jobs:
         run: go install github.com/yannh/kubeconform/cmd/kubeconform@latest
 
       - name: Validate Kubernetes manifests
-        run: kubeconform -strict -summary kubernetes/nginx
+        run: kubeconform -strict -summary kubernetes/
